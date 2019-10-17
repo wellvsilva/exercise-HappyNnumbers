@@ -1,27 +1,20 @@
-def sum_of_digits(number):
+def sum_of_squares(number):
     string = str(number)
     digits = [int(char) ** 2 for char in string]
     return sum(digits)
 
 
 def happy(number):
-    if number == 130:
-        number = sum_of_digits(number)
-
-    if number in (1, 10, 100):
-        string = str(number)
-
-        digits = [int(char) for char in string]
-        total = sum(digits)
-
-        return total == 1
+    box = []
+    n = number
+    while n != 1 and n not in box:
+        box.append(n)
+        n = sum_of_squares(n)
+    return n == 1
 
     return False
 
-print(sum_of_digits(130))
-assert sum_of_digits(130) == 10
-assert happy(1)
-assert happy(10)
-assert happy(100)
-assert happy(130)
-assert not happy(4)
+
+assert sum_of_squares(130) == 10
+assert all([happy(n) for n in (1, 10, 100, 130, 97)])
+assert not all(happy(n) for n in (2, 3, 4, 5, 6, 8, 9))
